@@ -1,10 +1,12 @@
 package com.example.a301.myapplication;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,7 +18,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -61,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Model_Lecture> adapterList;
     public int soundSet=-1;
 
-
-
+    public String strFinishTime="2359";
 
     private BeaconManager beaconManager;
     private Region region;
@@ -79,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tv_data;
     TextView tv_date;
-
+    ImageView btn_logout;
 
 
     private boolean FLAG = false;
@@ -121,6 +125,25 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("여기는 메인"," ");
 
+        btn_logout=(ImageView)findViewById(R.id.btn_logout);
+
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = auto.edit();
+                //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
+                editor.clear();
+                editor.commit();
+                Toast.makeText(MainActivity.this, "로그아웃.", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
         currentSTUlist= new ArrayList<>();
 
         for(int i=0; i<BaseActivity.studentList.size();i++) {
@@ -132,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
                 String _lecture3 = BaseActivity.studentList.get(i).getLecture3();
                 String _password= BaseActivity.studentList.get(i).getPassword();
                 String _name =BaseActivity.studentList.get(i).getName();
-               currentSTUlist.add(new Model_Student(_studentNum, _lecture1, _lecture2, _lecture3,_password,_name));
+                String _foreigner=BaseActivity.studentList.get(i).getForeiner();
+               currentSTUlist.add(new Model_Student(_studentNum, _lecture1, _lecture2, _lecture3,_password,_name,_foreigner));
             }
         }
 
@@ -140,7 +164,11 @@ public class MainActivity extends AppCompatActivity {
         tv_date = (TextView) findViewById(R.id.tv_date);
 
         tv_data.setText("["+ currentSTUlist.get(0).getName()+"]" + " (" + BaseActivity.currentStudent + ") ");
-        tv_date.setText(new TimeManager().getCurrentDate());
+        if(BaseActivity.foreignerFlag)
+        {
+            tv_date.setText(new TimeManager().getEcurrentDate());
+        }
+        else {tv_date.setText(new TimeManager().getCurrentDate());}
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_home);
@@ -171,7 +199,8 @@ public class MainActivity extends AppCompatActivity {
                     String lectureStartTime = BaseActivity.lectureList.get(i).getLectureStartTime();
                     String lectureFinishTime = BaseActivity.lectureList.get(i).getLectureFinishTime();
                     String lectureDay = BaseActivity.lectureList.get(i).getLectureDay();
-                    adapterList.add(new Model_Lecture(lecture, lectureRoom, lectureStartTime, lectureFinishTime, lectureDay));
+                    String professor =BaseActivity.lectureList.get(i).getProfessor();
+                    adapterList.add(new Model_Lecture(lecture, lectureRoom, lectureStartTime, lectureFinishTime, lectureDay,professor));
                 }
             }
         }
@@ -214,15 +243,9 @@ public class MainActivity extends AppCompatActivity {
                         String nowDate = tempStr[0];
                         String nowTime = tempStr[1];
                         int nowIntTime = Integer.parseInt(nowTime);
+                        int intFinishTime =Integer.parseInt(strFinishTime);
 
-                        for (int i = 0; i < todayList.size(); i++) {
-
-                            Log.d("플래그값은", " " + FLAG);
-                            Log.d("플래그값은", "현재시간" + nowIntTime);
-                            int finishTisTime = Integer.parseInt(todayList.get(i).getLectureFinishTime());
-                            Log.d("플래그값은", "finish시간" + finishTisTime);
-
-                            if (finishTisTime <= nowIntTime) {
+                            if (intFinishTime <= nowIntTime) {
                                 FLAG = false;
                                 silentFLAG = false;
                                 if (soundSet == 0) {
@@ -233,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
                                     mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                                 }
                             }
-                        }
+
                         // 지금수업중이던 수업이 끝나고 나면 다시 수업 탐색, 원래 소리로 복귀
 
 
@@ -261,9 +284,10 @@ public class MainActivity extends AppCompatActivity {
                                     String lectureStartTime = BaseActivity.lectureList.get(i).getLectureStartTime();
                                     String lectureFinishTime = BaseActivity.lectureList.get(i).getLectureFinishTime();
                                     String lectureDay = BaseActivity.lectureList.get(i).getLectureDay();
+                                    String professor =BaseActivity.lectureList.get(i).getProfessor();
 
                                     //roomNum에서 열리는 강의리스트를 tempList에 담기
-                                    tempList.add(new Model_Lecture(lecture, lectureRoom, lectureStartTime, lectureFinishTime, lectureDay));
+                                    tempList.add(new Model_Lecture(lecture, lectureRoom, lectureStartTime, lectureFinishTime, lectureDay,professor));
                                 }
                             }
 
@@ -282,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
                                             int startTimePlus10 = Integer.parseInt(str2);
                                             int startTimePlus30 = Integer.parseInt(str3);
                                             int finishTime = Integer.parseInt(tempList.get(i).getLectureFinishTime());
+                                            strFinishTime=tempList.get(i).getLectureFinishTime();
 
                                             Log.d("This startTimeMinus10", "is  " + startTimeMinus10);
                                             Log.d("This startTimePlus10", "is  " + startTimePlus10);

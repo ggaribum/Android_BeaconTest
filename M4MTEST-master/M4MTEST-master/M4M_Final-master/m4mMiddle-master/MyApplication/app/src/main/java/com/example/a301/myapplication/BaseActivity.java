@@ -23,23 +23,24 @@ import java.util.ArrayList;
 public class BaseActivity extends AppCompatActivity {
 
     public static String currentStudent;
-
+    public static boolean foreignerFlag;
+    public static String currentName;
     public static ArrayList<Model_Lecture> lectureList;
     public static ArrayList<Model_Student> studentList;
     public static ArrayList<Model_Notify> notifyList;
+   // public static ArrayList<Model_Notify>eNotifyList;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+
         lectureList = new ArrayList<>();
         studentList= new ArrayList<>();
         notifyList=new ArrayList<>();
+       // eNotifyList=new ArrayList<>();
 
-        DataManager_Notify dmN = new DataManager_Notify();
-        dmN.loadData();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

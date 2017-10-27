@@ -3,16 +3,16 @@
     <string name="app_name">M4M</string>
 
     <string name="main_main">Today Lecture</string>
-    <string name="schedule_lectureType">Normal Lecture</string>
-    <string name="schedule_professor">Proffesor</string>
+    <string name="schedule_lectureType">English Lecture</string>
+    <string name="schedule_professor">Professor</string>
     <string name="schedule_schedule">Schedule</string>
     <string name="search_search">Search Attendance</string>
     <string name="search_date">Date</string>
     <string name="search_lectureNmae">ClassName</string>
-    <string name="search_attendance">Attendance</string>
+    <string name="search_attendance">Time</string>
     <string name="search_state">State</string>
-
-
+    <string name="itemcheck_time">None</string>
+    <string name="notification">Notification</string>
 
 
 </resources>

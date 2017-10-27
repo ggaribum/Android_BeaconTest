@@ -48,4 +48,32 @@ public class DataManager_Notify {
         });
 
     }
+    public void loadEdata()
+    {
+        Retrofit client = new Retrofit.Builder().baseUrl(Constants.req_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        RetrofitService service = client.create(RetrofitService.class);
+        Call<NotifyVO> call = service.getEnotifyData();
+        call.enqueue(new Callback<NotifyVO>() {
+            @Override
+            public void onResponse(Call<NotifyVO> call, Response<NotifyVO> response) {
+                if(response.isSuccessful()){
+                    notifyVO=response.body();
+                    notifyArrayList=notifyVO.getList();
+                    for(int i=0; i< notifyArrayList.size();i++)
+                    {
+                        String topic =notifyArrayList.get(i).getTopic();
+                        String text=notifyArrayList.get(i).getText();
+                        String date=notifyArrayList.get(i).getDate();
+                        BaseActivity.notifyList.add(new Model_Notify(topic, text, date));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotifyVO> call, Throwable t) {
+
+            }
+        });
+
+    }
 }

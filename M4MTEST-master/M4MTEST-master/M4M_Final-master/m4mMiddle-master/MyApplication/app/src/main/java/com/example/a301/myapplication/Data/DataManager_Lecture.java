@@ -50,7 +50,8 @@ public class DataManager_Lecture {
                         String lectureStartTime = tempList.get(i).getLectureStartTime();
                         String lectureFinishTime = tempList.get(i).getLectureFinishTime();
                         String lectureDay = tempList.get(i).getLectureDay();
-                        BaseActivity.lectureList.add(new Model_Lecture(lecture, lectureRoom, lectureStartTime, lectureFinishTime, lectureDay));
+                        String professor = tempList.get(i).getProfessor();
+                        BaseActivity.lectureList.add(new Model_Lecture(lecture, lectureRoom, lectureStartTime, lectureFinishTime, lectureDay,professor));
                     }
 
                     Intent intent = new Intent(activity, MainActivity.class);

@@ -69,7 +69,8 @@ public class ScheduleActivity extends AppCompatActivity {
                 String _lecture3 = BaseActivity.studentList.get(i).getLecture3();
                 String _password= BaseActivity.studentList.get(i).getPassword();
                 String _name =BaseActivity.studentList.get(i).getName();
-                currentSTUlist.add(new Model_Student(_studentNum, _lecture1, _lecture2, _lecture3,_password,_name));
+                String _foreigner=BaseActivity.studentList.get(i).getForeiner();
+                currentSTUlist.add(new Model_Student(_studentNum, _lecture1, _lecture2, _lecture3,_password,_name,_foreigner));
             }
         }
 
@@ -83,8 +84,12 @@ public class ScheduleActivity extends AppCompatActivity {
         tv_data = (TextView) findViewById(R.id.tv_data_sche);
         tv_date = (TextView) findViewById(R.id.tv_date_sche);
 
-        tv_data.setText("[name]" + " (" + BaseActivity.currentStudent + ") ");
-        tv_date.setText(new TimeManager().getCurrentDate());
+        tv_data.setText("["+ currentSTUlist.get(0).getName()+"]" + " (" + BaseActivity.currentStudent + ") ");
+        if(BaseActivity.foreignerFlag)
+        {
+            tv_date.setText(new TimeManager().getEcurrentDate());
+        }
+        else {tv_date.setText(new TimeManager().getCurrentDate());}
 
         manager = new LinearLayoutManager(getApplicationContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -102,7 +107,8 @@ public class ScheduleActivity extends AppCompatActivity {
                     String lectureStartTime = BaseActivity.lectureList.get(i).getLectureStartTime();
                     String lectureFinishTime = BaseActivity.lectureList.get(i).getLectureFinishTime();
                     String lectureDay = BaseActivity.lectureList.get(i).getLectureDay();
-                    tempList.add(new Model_Lecture(lecture, lectureRoom, lectureStartTime, lectureFinishTime, lectureDay));
+                    String professor =BaseActivity.lectureList.get(i).getProfessor();
+                    tempList.add(new Model_Lecture(lecture, lectureRoom, lectureStartTime, lectureFinishTime, lectureDay,professor));
 
             }
         }

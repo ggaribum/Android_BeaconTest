@@ -60,6 +60,7 @@ public class Adapter_Lecture extends RecyclerView.Adapter<Adapter_Lecture.ViewHo
                 adapterContext.startActivity(intent);
             }
         });
+        holder.professorTv.setText(tempArr.get(position).getProfessor());
 
     }
 
@@ -74,6 +75,7 @@ public class Adapter_Lecture extends RecyclerView.Adapter<Adapter_Lecture.ViewHo
         public TextView lectureRoomTv;
         public TextView lectureTimeTv;
         public TextView lectureDateTv;
+        public TextView professorTv;
         public LinearLayout test;
 
 
@@ -86,6 +88,7 @@ public class Adapter_Lecture extends RecyclerView.Adapter<Adapter_Lecture.ViewHo
             lectureRoomTv=(TextView)itemView.findViewById(R.id.lectureRoom_TextView);
             lectureDateTv=(TextView)itemView.findViewById(R.id.lectureDate_TextView);
             lectureTimeTv=(TextView)itemView.findViewById(R.id.lectureTime_TextView);
+            professorTv=(TextView)itemView.findViewById(R.id.lecturePro_TextView);
 
 
         }

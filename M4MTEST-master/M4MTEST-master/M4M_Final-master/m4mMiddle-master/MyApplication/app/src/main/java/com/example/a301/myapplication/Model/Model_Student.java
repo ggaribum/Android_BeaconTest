@@ -12,17 +12,19 @@ public class Model_Student {
     String lecture3;
     String password;
     String name;
+    String foreiner;
 
     public Model_Student() {
     }
 
-    public Model_Student(String studentNum, String lecture1, String lecture2, String lecture3,String password, String name) {
+    public Model_Student(String studentNum, String lecture1, String lecture2, String lecture3,String password, String name,String foreiner) {
         this.studentNum = studentNum;
         this.lecture1 = lecture1;
         this.lecture2 = lecture2;
         this.lecture3 = lecture3;
         this.password = password;
         this.name=name;
+        this.foreiner=foreiner;
     }
 
     public String getStudentNum() {
@@ -45,4 +47,12 @@ public class Model_Student {
         return password;
     }
     public String getName(){return  name;}
+
+    public String getForeiner() {
+        return foreiner;
+    }
+
+    public void setForeiner(String foreiner) {
+        this.foreiner = foreiner;
+    }
 }

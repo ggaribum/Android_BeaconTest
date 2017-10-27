@@ -51,8 +51,9 @@ public class DataManager_Student {
                         String lecture3 = tempList2.get(i).getLecture3();
                         String password= tempList2.get(i).getPassword();
                         String name= tempList2.get(i).getName();
+                        String foreigner =tempList2.get(i).getForeiner();
 
-                        BaseActivity.studentList.add(new Model_Student(studentNum, lecture1, lecture2, lecture3,password,name));
+                        BaseActivity.studentList.add(new Model_Student(studentNum, lecture1, lecture2, lecture3,password,name,foreigner));
                     }
 
                     Intent intent = new Intent(activity, LoginActivity.class);

@@ -18,5 +18,17 @@ public class TimeManager {
 
         return currentDate;
     }
+    public String getEcurrentDate()
+    {
+        Calendar cal = Calendar.getInstance();
+
+        String currentDate = String.valueOf(cal.get(Calendar.DATE))+"/"
+                +String.valueOf(cal.get(Calendar.MONTH) + 1) + "/"
+                +String.valueOf(cal.get(Calendar.YEAR));
+
+
+        return currentDate;
+
+    }
 
 }

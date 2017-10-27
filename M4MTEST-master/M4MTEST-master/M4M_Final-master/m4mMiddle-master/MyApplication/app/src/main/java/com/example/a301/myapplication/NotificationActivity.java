@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.a301.myapplication.Controller.Adapter_Notify;
 import com.example.a301.myapplication.Controller.BottomNavigationViewHelper;
+import com.example.a301.myapplication.Controller.TimeManager;
 import com.example.a301.myapplication.Model.Model_Notify;
 
 import java.util.ArrayList;
@@ -44,6 +46,11 @@ public class NotificationActivity extends AppCompatActivity {
     ArrayList<Model_Notify> notifyArrayList;
     Adapter_Notify adapter_notify;
     LinearLayoutManager manager;
+
+    TextView tv_data;
+    TextView tv_date;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +58,16 @@ public class NotificationActivity extends AppCompatActivity {
         recyclerView=(RecyclerView) findViewById(R.id.rv_notify);
         manager = new LinearLayoutManager(getApplicationContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        tv_data = (TextView) findViewById(R.id.tv_data_noti);
+        tv_date = (TextView) findViewById(R.id.tv_date_noti);
+
+        tv_data.setText("["+ BaseActivity.currentName+"]" + " (" + BaseActivity.currentStudent + ") ");
+        if(BaseActivity.foreignerFlag)
+        {
+            tv_date.setText(new TimeManager().getEcurrentDate());
+        }
+        else {tv_date.setText(new TimeManager().getCurrentDate());}
 
         adapter_notify= new Adapter_Notify(BaseActivity.notifyList,getApplicationContext());
         recyclerView.setLayoutManager(manager);

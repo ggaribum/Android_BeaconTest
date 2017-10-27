@@ -63,8 +63,12 @@ public class SearchActivity extends AppCompatActivity {
         tv_data = (TextView) findViewById(R.id.tv_data_sear);
         tv_date = (TextView) findViewById(R.id.tv_date_sear);
 
-        tv_data.setText("[name]" + " (" + BaseActivity.currentStudent + ") ");
-        tv_date.setText(new TimeManager().getCurrentDate());
+        tv_data.setText("["+ BaseActivity.currentName+"]" + " (" + BaseActivity.currentStudent + ") ");
+        if(BaseActivity.foreignerFlag)
+        {
+            tv_date.setText(new TimeManager().getEcurrentDate());
+        }
+        else {tv_date.setText(new TimeManager().getCurrentDate());}
 
 
         Retrofit client = new Retrofit.Builder().baseUrl(Constants.req_URL).addConverterFactory(GsonConverterFactory.create()).build();

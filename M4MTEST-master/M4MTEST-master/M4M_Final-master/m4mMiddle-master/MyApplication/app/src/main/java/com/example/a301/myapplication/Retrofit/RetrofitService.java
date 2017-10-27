@@ -21,5 +21,6 @@ public interface RetrofitService {
     Call<CheckVO> getCheckData();
     @GET("/notice")
     Call<NotifyVO> getNotifyData();
-
+    @GET("/eNotice")
+    Call<NotifyVO> getEnotifyData();
 }

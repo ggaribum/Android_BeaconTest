@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.a301.myapplication.Data.DataManager_Notify;
+
 public class LoginActivity extends Activity {
 
     EditText edt_id;
@@ -54,7 +56,20 @@ public class LoginActivity extends Activity {
             {
                 if(loginId.equals(BaseActivity.studentList.get(i).getStudentNum()))
                 {
+                    if(BaseActivity.studentList.get(i).getForeiner().equals("1"))
+                    {
+                        BaseActivity.foreignerFlag=true;
+                        DataManager_Notify dmN = new DataManager_Notify();
+                        dmN.loadEdata();
+                    }
+                    else
+                    {
+                        BaseActivity.foreignerFlag=false;
+                        DataManager_Notify dmN = new DataManager_Notify();
+                        dmN.loadData();
+                    }
                     BaseActivity.currentStudent =loginId;
+                    BaseActivity.currentName=BaseActivity.studentList.get(i).getName();
                     Toast.makeText(LoginActivity.this, BaseActivity.currentStudent +"님 자동로그인 입니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, LoadingActivity.class);
                     startActivity(intent);
@@ -78,6 +93,19 @@ public class LoginActivity extends Activity {
                             Log.d("뭔데 시발아2222",edt_id.getText().toString());
 
                             BaseActivity.currentStudent =edt_id.getText().toString();
+                            BaseActivity.currentName=BaseActivity.studentList.get(i).getName();
+                            if(BaseActivity.studentList.get(i).getForeiner().equals("1"))
+                            {
+                                BaseActivity.foreignerFlag=true;
+                                DataManager_Notify dmN = new DataManager_Notify();
+                                dmN.loadEdata();
+                            }
+                            else
+                            {
+                                BaseActivity.foreignerFlag=false;
+                                DataManager_Notify dmN = new DataManager_Notify();
+                                dmN.loadData();
+                            }
 
                             Log.d("뭔데 시발아",edt_id.getText().toString());
 

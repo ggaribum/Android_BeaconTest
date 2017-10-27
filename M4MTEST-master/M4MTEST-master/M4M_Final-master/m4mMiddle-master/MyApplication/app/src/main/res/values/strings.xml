@@ -11,6 +11,8 @@
     <string name="search_lectureNmae">강의명</string>
     <string name="search_attendance">출석</string>
     <string name="search_state">상태</string>
+    <string name="itemcheck_time">없음</string>
+    <string name="notification">공지사항</string>
 
 
 

@@ -12,17 +12,19 @@ public class Model_Lecture {
     String lectureStartTime;
     String lectureFinishTime;
     String lectureDay;
+    String professor;
 
     public Model_Lecture() {
 
     }
 
-    public Model_Lecture(String lecture, String lectureRoom, String lectureStartTime, String lectureFinishTime, String lectureDay) {
+    public Model_Lecture(String lecture, String lectureRoom, String lectureStartTime, String lectureFinishTime, String lectureDay,String professor) {
         this.lecture = lecture;
         this.lectureRoom = lectureRoom;
         this.lectureStartTime = lectureStartTime;
         this.lectureFinishTime = lectureFinishTime;
         this.lectureDay = lectureDay;
+        this.professor=professor;
     }
 
     public String getLecture() {
@@ -43,5 +45,9 @@ public class Model_Lecture {
 
     public String getLectureDay() {
         return lectureDay;
+    }
+
+    public String getProfessor() {
+        return professor;
     }
 }

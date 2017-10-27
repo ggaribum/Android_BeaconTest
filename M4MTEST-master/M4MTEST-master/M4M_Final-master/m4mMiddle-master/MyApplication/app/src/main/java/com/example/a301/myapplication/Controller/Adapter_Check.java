@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.a301.myapplication.BaseActivity;
 import com.example.a301.myapplication.Model.Model_Check;
 import com.example.a301.myapplication.R;
 
@@ -56,7 +57,13 @@ public class Adapter_Check extends  RecyclerView.Adapter<Adapter_Check.ViewHolde
                     String timeTemp2 = time.substring(2, 4);
                     time = timeTemp1 + ":" + timeTemp2;
                 } else {
-                    time = "없음";
+                    if(BaseActivity.foreignerFlag)
+                    {
+                        time="None";
+                    }
+                    else {
+                        time = "없음";
+                    }
                 }
             }
             holder.lectureTimeTv.setText(time);
@@ -69,6 +76,15 @@ public class Adapter_Check extends  RecyclerView.Adapter<Adapter_Check.ViewHolde
                     holder.lectureDateTv.setTextColor(Color.parseColor("#e8b12b"));
                     break;
                 case "결석":
+                    holder.lectureDateTv.setTextColor(Color.RED);
+                    break;
+                case "○":
+                    holder.lectureDateTv.setTextColor(Color.GREEN);
+                    break;
+                case "△":
+                    holder.lectureDateTv.setTextColor(Color.parseColor("#e8b12b"));
+                    break;
+                case "X":
                     holder.lectureDateTv.setTextColor(Color.RED);
                     break;
             }
