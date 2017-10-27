@@ -68,29 +68,28 @@ public class Adapter_Check extends  RecyclerView.Adapter<Adapter_Check.ViewHolde
             }
             holder.lectureTimeTv.setText(time);
             holder.lectureTv.setText(tempArr.get(position).getLecture());
-            switch (tempArr.get(position).getAttendanceState()) {
-                case "출석":
-                    holder.lectureDateTv.setTextColor(Color.GREEN);
-                    break;
-                case "지각":
-                    holder.lectureDateTv.setTextColor(Color.parseColor("#e8b12b"));
-                    break;
-                case "결석":
-                    holder.lectureDateTv.setTextColor(Color.RED);
-                    break;
-                case "○":
-                    holder.lectureDateTv.setTextColor(Color.GREEN);
-                    break;
-                case "△":
-                    holder.lectureDateTv.setTextColor(Color.parseColor("#e8b12b"));
-                    break;
-                case "X":
-                    holder.lectureDateTv.setTextColor(Color.RED);
-                    break;
-            }
-            holder.lectureDateTv.setText(tempArr.get(position).getAttendanceState());
+        switch (tempArr.get(position).getAttendanceState()) {
+            case "출석":
+                holder.lectureDateTv.setTextColor(Color.parseColor("#0099cc"));
+                break;
+            case "지각":
+                holder.lectureDateTv.setTextColor(Color.parseColor("#e8b12b"));
+                break;
+            case "결석":
+                holder.lectureDateTv.setTextColor(Color.RED);
+                break;
+            case "○":
+                holder.lectureDateTv.setTextColor(Color.parseColor("#0099cc"));
+                break;
+            case "△":
+                holder.lectureDateTv.setTextColor(Color.parseColor("#e8b12b"));
+                break;
+            case "X":
+                holder.lectureDateTv.setTextColor(Color.RED);
+                break;
         }
-
+        holder.lectureDateTv.setText(tempArr.get(position).getAttendanceState());
+    }
 
     @Override
     public int getItemCount() {

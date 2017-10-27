@@ -1,6 +1,8 @@
 package com.example.a301.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,7 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a301.myapplication.Controller.Adapter_Notify;
 import com.example.a301.myapplication.Controller.BottomNavigationViewHelper;
@@ -49,7 +54,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     TextView tv_data;
     TextView tv_date;
-
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,24 @@ public class NotificationActivity extends AppCompatActivity {
 
         tv_data = (TextView) findViewById(R.id.tv_data_noti);
         tv_date = (TextView) findViewById(R.id.tv_date_noti);
+        imageView=(ImageView)findViewById(R.id.btn_logout);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = auto.edit();
+                //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
+                editor.clear();
+                editor.commit();
+                Toast.makeText(NotificationActivity.this, BaseActivity.currentStudent+ "님이 로그아웃 되었습니다", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+                finish();
+
+
+            }
+        });
 
         tv_data.setText("["+ BaseActivity.currentName+"]" + " (" + BaseActivity.currentStudent + ") ");
         if(BaseActivity.foreignerFlag)

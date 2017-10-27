@@ -170,6 +170,24 @@ public class MainActivity extends AppCompatActivity {
         }
         else {tv_date.setText(new TimeManager().getCurrentDate());}
 
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = auto.edit();
+                //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
+                editor.clear();
+                editor.commit();
+                Toast.makeText(MainActivity.this, "로그아웃.", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+                finish();
+
+
+            }
+        });
+
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_home);
         BottomNavigationViewHelper.disableShiftMode(navigation);
@@ -435,7 +453,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         FLAG = true;
-        showNotification("M4M", lecture+" 출석 완료. 매너있게 변경되었습니다.");
+
         //showNotification("M4M", "강의 중 무음모드 작동");
         setSilent(thisAudioManager);
 
@@ -482,6 +500,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(JSONObject response) {
 
+                                    showNotification("아맞다", lecture+" 출석 완료. 매너있게 변경되었습니다.");
                                     Log.d("지금시간확인", ": " + str);
                                 }
 
@@ -530,8 +549,8 @@ public class MainActivity extends AppCompatActivity {
         Notification notification = new Notification.Builder(this)
                 .setContentTitle(title)
                 .setContentText(message)
-                .setSmallIcon(R.drawable.make)
-                .setTicker("[M4M] 모드가 변경되었습니다")
+                .setSmallIcon(R.drawable.logo)
+                .setTicker("[아맞다] 모드가 변경되었습니다")
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
                 .setPriority(Notification.PRIORITY_HIGH)

@@ -1,6 +1,6 @@
 <resources>
     <!-- 앱 이름 정의 부분-->
-    <string name="app_name">M4M</string>
+    <string name="app_name">aMatDA</string>
 
     <string name="main_main">Today Lecture</string>
     <string name="schedule_lectureType">English Lecture</string>
